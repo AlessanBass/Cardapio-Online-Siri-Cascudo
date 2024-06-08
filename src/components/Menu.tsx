@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import iconHamburguer from '../../public/icon_hamburguer.png';
 import hamburguesData from '@/products/hamburgues.json';
 import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 
 
@@ -27,41 +29,29 @@ export default function Menu() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<null | Hamburgues>(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
+    /* Para o dialog */
+    const[visible, setVisible] = useState(false);
 
-    const openModal = (product: Hamburgues) => {
+    const openDialog = (product: Hamburgues) => {
         setSelectedProduct(product);
         setSelectedQuantity(1); // Reset quantity
-        setModalIsOpen(true);
+        setVisible(true);
     };
 
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
-
-    const handleAddToCart = () => {
-        if (selectedProduct) {
-            setQuantities(prevQuantities => ({
-                ...prevQuantities,
-                [selectedProduct.id]: (prevQuantities[selectedProduct.id] || 0) + selectedQuantity
-            }));
-            closeModal();
-        }
+    const closeDialog = () => {
+        setVisible(false);
     };
 
 
-    const incrementQuantity = (index: number) => {
-        setQuantities(prevQuantities => ({
-            ...prevQuantities,
-            [index]: (prevQuantities[index] || 0) + 1
-        }));
+    const incrementQuantity = () => {
+        setSelectedQuantity(prevQuantity => prevQuantity + 1);
     };
 
-    const decrementQuantity = (index: number) => {
-        setQuantities(prevQuantities => ({
-            ...prevQuantities,
-            [index]: Math.max((prevQuantities[index] || 0) - 1, 0)
-        }));
+    const decrementQuantity = () => {
+        setSelectedQuantity(prevQuantity => Math.max(prevQuantity - 1, 1));
     };
+
+
     return (
         <div className={`${styleMenu.divMenu}`}>
             <h1>Menu de Opções</h1>
@@ -98,7 +88,7 @@ export default function Menu() {
                                     {/* <button onClick={() => decrementQuantity(index)}>-</button>
                                     <span style={{ margin: '0 10px' }}>{quantities[index] || 0}</span>
                                     <button onClick={() => incrementQuantity(index)}>+</button> */}
-                                    <button className={`${styleAccordion.addCar}`}>Adicionar ao Carrinho</button>
+                                    <button className={`${styleAccordion.addCar}`} onClick={() => openDialog(hamburgues)}>Adicionar ao Carrinho</button>
                                 </div>
                             </div>
                         ))}
@@ -116,6 +106,25 @@ export default function Menu() {
                     </p>
                 </AccordionTab>
             </Accordion>
+
+
+            <Dialog className={`${styleAccordion.dialog}`} visible={visible} style={{ width: '50vw', borderRadius:'20px'}} onHide={closeDialog}>
+            {selectedProduct && (
+                    <div className={`${styleAccordion.divDialog}`}>
+                        <h2 className={`${styleAccordion.h2Dialog}`}>Selecione a quantidade desejada</h2>
+                        <h3 className={`${styleAccordion.h3Dialog}`}>{selectedProduct.name}</h3>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Button label='-' icon="pi pi-minus" onClick={decrementQuantity}  className={`${styleAccordion.buttonDecrement}`}/>
+                            <span style={{ margin: '0 10px' }}>{selectedQuantity}</span>
+                            <Button label='+' icon="pi pi-plus" onClick={incrementQuantity} className={`${styleAccordion.buttonIncrement}`}/>
+                        </div>
+                        <div style={{ marginTop: '20px' }}>
+                            <Button label="Adicionar ao Carrinho" className={`${styleAccordion.addCar}`} />
+                            <Button label="Cancelar" onClick={closeDialog} className={`${styleAccordion.cancel}`} />
+                        </div>
+                    </div>
+                )}
+            </Dialog>
         </div>
     );
 }
