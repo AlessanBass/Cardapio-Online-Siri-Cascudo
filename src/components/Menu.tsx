@@ -2,6 +2,7 @@ import styleMenu from '@/styles/menu.module.css';
 import styleAccordion from '@/styles/acorddion.module.css';
 import React, { useState } from 'react';
 import iconHamburguer from '../../public/icon_hamburguer.png';
+import Image from 'next/image';
 import hamburguesData from '@/products/hamburgues.json';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Dialog } from 'primereact/dialog';
@@ -25,12 +26,12 @@ interface Pedido {
 export default function Menu() {
     //const [nomeCliente, setNomeCliente] = useState("");
     const hamburgues: Hamburgues[] = hamburguesData;
-   // const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+    // const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
     //const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<null | Hamburgues>(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     /* Para o dialog */
-    const[visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     const openDialog = (product: Hamburgues) => {
         setSelectedProduct(product);
@@ -69,7 +70,7 @@ export default function Menu() {
             <Accordion className={`${styleAccordion.accordion}`}>
                 <AccordionTab header={
                     <span className={`${styleAccordion.spanHeader}`}>
-                        <img src={`${iconHamburguer.src}`} alt="Icone Hamburguer" className={`${styleAccordion.icon}`} />
+                        <Image src={`${iconHamburguer.src}`} alt='ícone hamburger' className={`${styleAccordion.icon}`} />
                         <span className={`${styleAccordion.textHeader}`}>Hamburgures</span>
                     </span>
                 }>
@@ -108,15 +109,15 @@ export default function Menu() {
             </Accordion>
 
 
-            <Dialog className={`${styleAccordion.dialog}`} visible={visible} style={{ width: '50vw', borderRadius:'20px'}} onHide={closeDialog}>
-            {selectedProduct && (
+            <Dialog className={`${styleAccordion.dialog}`} visible={visible} style={{ width: '50vw', borderRadius: '20px' }} onHide={closeDialog}>
+                {selectedProduct && (
                     <div className={`${styleAccordion.divDialog}`}>
                         <h2 className={`${styleAccordion.h2Dialog}`}>Selecione a quantidade desejada</h2>
                         <h3 className={`${styleAccordion.h3Dialog}`}>{selectedProduct.name}</h3>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Button label='-' icon="pi pi-minus" onClick={decrementQuantity}  className={`${styleAccordion.buttonDecrement}`}/>
+                            <Button label='-' icon="pi pi-minus" onClick={decrementQuantity} className={`${styleAccordion.buttonDecrement}`} />
                             <span style={{ margin: '0 10px' }}>{selectedQuantity}</span>
-                            <Button label='+' icon="pi pi-plus" onClick={incrementQuantity} className={`${styleAccordion.buttonIncrement}`}/>
+                            <Button label='+' icon="pi pi-plus" onClick={incrementQuantity} className={`${styleAccordion.buttonIncrement}`} />
                         </div>
                         <div style={{ marginTop: '20px' }}>
                             <Button label="Adicionar ao Carrinho" className={`${styleAccordion.addCar}`} />
