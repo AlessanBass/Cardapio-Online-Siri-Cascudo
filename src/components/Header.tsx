@@ -61,7 +61,6 @@ export default function Header({ selectedProducts, totalPrice, setSelectedProduc
     };
 
     const handleRemoveProduct = (id_pedido: number, price: number, qtd: number) => {
-        /* console.log(id_pedido); */
         const newSelectedProducts = [...selectedProducts];
         newSelectedProducts.splice(id_pedido, 1);
         setSelectedProducts(newSelectedProducts); 
@@ -78,7 +77,12 @@ export default function Header({ selectedProducts, totalPrice, setSelectedProduc
                 <Image src={logo.src} alt='Logo Siri Cascudo' width={110} height={110} />
             </Link>
 
-            <button onClick={handleShowCart}>Exibir Carrinho</button>
+            <div>
+                <Button onClick={handleShowCart} className={`${styleHeader.button}`}>
+                     <i onClick={handleShowCart} className={` fa-solid fa-cart-shopping ${styleHeader.iconButton}`}></i>
+                     <span>Exibir Carrinho</span>
+                </Button>
+            </div>
 
             <Dialog visible={visible} style={{ width: '50vw', borderRadius: '20px', backgroundColor:'white', color:'black'}} onHide={closeDialog} modal>
                 <div>
