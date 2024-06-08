@@ -25,13 +25,17 @@ interface Pedido {
     quantidade: number;
 }
 
+interface MenuProps {
+    selectedProducts: Pedido[];
+    setSelectedProducts: (selectedProducts: Pedido[]) => void;
+    totalPrice: number;
+    setTotalPrice: (totalPrice: number) => void;
+}
 
-export default function Menu() {
-    //const [nomeCliente, setNomeCliente] = useState("");
+
+export default function Menu({ selectedProducts, setSelectedProducts, totalPrice, setTotalPrice }: MenuProps) {
     const hamburgues: Hamburgues[] = hamburguesData;
     const [pedidos, setPedidos] = useState<Pedido[]>([]);
-    // const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
-    //const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<null | Hamburgues>(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     /* Para o dialog */
@@ -54,14 +58,29 @@ export default function Menu() {
                 type: selectedProduct.type,
                 quantidade: selectedQuantity
             };
-            setPedidos(prevPedidos => {
-                const novosPedidos = [...prevPedidos, pedido];
-                console.log( novosPedidos);
-                return novosPedidos;
-            });
+    
+            // Encontrar o preço do produto selecionado pelo id
+            const selectedProductPrice = hamburgues.find(product => product.id === selectedProduct.id)?.price ?? 0;
+    
+            // Calcular o preço total de todos os produtos já selecionados
+            const totalPriceOfSelectedProducts = selectedProducts.reduce((total, product) => {
+                const productPrice = hamburgues.find(hamburguesProduct => hamburguesProduct.id === product.id_produto)?.price ?? 0;
+                // Adicionar o preço de cada produto ao total
+                return total + productPrice * product.quantidade;
+            }, 0);
+    
+            // Adicionar o preço do novo produto ao preço total
+            const newTotalPrice = totalPriceOfSelectedProducts + selectedProductPrice * selectedQuantity;
+    
+            setTotalPrice(newTotalPrice);
+            setSelectedProducts([...selectedProducts, pedido]);
+    
             closeDialog();
         }
     };
+    
+    
+    
 
 
 
