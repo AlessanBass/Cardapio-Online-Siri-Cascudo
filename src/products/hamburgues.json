@@ -1,6 +1,7 @@
 [
     {
       "id": 1,
+      "type":1,
       "name": "Classic Burger",
       "description": "A classic beef burger with cheese, lettuce, and tomato.",
       "ingredients": "Beef, Cheese, Lettuce, Tomato, Bun",
@@ -8,6 +9,7 @@
     },
     {
       "id": 2,
+      "type":1,
       "name": "Bacon Burger",
       "description": "A beef burger with crispy bacon, cheese, and BBQ sauce.",
       "ingredients": "Beef, Bacon, Cheese, BBQ Sauce, Bun",
@@ -15,6 +17,7 @@
     },
     {
       "id": 3,
+      "type":1,
       "name": "Veggie Burger",
       "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
       "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
@@ -22,10 +25,19 @@
     },
     {
       "id": 4,
+      "type":1,
       "name": "Zé da Manga Burguer",
       "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
       "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
       "price": 78.99
+    },
+    {
+      "id": 5,
+      "type":1,
+      "name": "Carne Molhada Burger",
+      "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
+      "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
+      "price": 45.99
     }
   ]
   

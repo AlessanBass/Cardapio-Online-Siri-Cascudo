@@ -8,26 +8,34 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 
-
+/* Criar um JSon de prosutos e cada produto terá um tipo(suco, hamhuber e etc) */
 
 interface Hamburgues {
     id: number
     name: string;
+    type: number;
     description: string;
     ingredients: string;
     price: number;
 }
 
 interface Pedido {
-    hambuguers: Hamburgues[];
+    id_produto: number;
+    type: number;
+    quantidade: number;
+}
+
+interface MenuProps {
+    selectedProducts: Pedido[];
+    setSelectedProducts: (selectedProducts: Pedido[]) => void;
+    totalPrice: number;
+    setTotalPrice: (totalPrice: number) => void;
 }
 
 
-export default function Menu() {
-    //const [nomeCliente, setNomeCliente] = useState("");
+export default function Menu({ selectedProducts, setSelectedProducts, totalPrice, setTotalPrice }: MenuProps) {
     const hamburgues: Hamburgues[] = hamburguesData;
-    // const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
-    //const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [pedidos, setPedidos] = useState<Pedido[]>([]);
     const [selectedProduct, setSelectedProduct] = useState<null | Hamburgues>(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     /* Para o dialog */
@@ -43,6 +51,38 @@ export default function Menu() {
         setVisible(false);
     };
 
+    const addToCart = () => {
+        if (selectedProduct) {
+            const pedido: Pedido = {
+                id_produto: selectedProduct.id,
+                type: selectedProduct.type,
+                quantidade: selectedQuantity
+            };
+    
+            // Encontrar o preço do produto selecionado pelo id
+            const selectedProductPrice = hamburgues.find(product => product.id === selectedProduct.id)?.price ?? 0;
+    
+            // Calcular o preço total de todos os produtos já selecionados
+            const totalPriceOfSelectedProducts = selectedProducts.reduce((total, product) => {
+                const productPrice = hamburgues.find(hamburguesProduct => hamburguesProduct.id === product.id_produto)?.price ?? 0;
+                // Adicionar o preço de cada produto ao total
+                return total + productPrice * product.quantidade;
+            }, 0);
+    
+            // Adicionar o preço do novo produto ao preço total
+            const newTotalPrice = totalPriceOfSelectedProducts + selectedProductPrice * selectedQuantity;
+    
+            setTotalPrice(newTotalPrice);
+            setSelectedProducts([...selectedProducts, pedido]);
+    
+            closeDialog();
+        }
+    };
+    
+    
+    
+
+
 
     const incrementQuantity = () => {
         setSelectedQuantity(prevQuantity => prevQuantity + 1);
@@ -56,44 +96,41 @@ export default function Menu() {
     return (
         <div className={`${styleMenu.divMenu}`}>
             <h1>Menu de Opções</h1>
-            {/* <div>
-                {hamburgues.map((hamburgues, index) => (
-                    <div key={index} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px 0' }}>
-                        <h2>{hamburgues.name}</h2>
-                        <p>{hamburgues.description}</p>
-                        <p><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
-                        <p><strong>Preço:</strong> ${hamburgues.price.toFixed(2)}</p>
-                    </div>
-                ))}
-            </div> */}
 
             <Accordion className={`${styleAccordion.accordion}`}>
                 <AccordionTab header={
                     <span className={`${styleAccordion.spanHeader}`}>
-                        <Image src={`${iconHamburguer.src}`} alt='ícone hamburger' className={`${styleAccordion.icon}`} />
+                        <Image src={`${iconHamburguer.src}`} alt='ícone hamburger' className={`${styleAccordion.icon}`} width={100} height={100} />
                         <span className={`${styleAccordion.textHeader}`}>Hamburgures</span>
                     </span>
                 }>
 
                     <div>
                         {hamburgues.map((hamburgues, index) => (
-                            <div key={index} className={`${styleAccordion.divProductos}`}>
-                                <div className={`${styleAccordion.divProductosInfo}`}>
-                                    <h2>{hamburgues.name}</h2>
-                                    <p>{hamburgues.description}</p>
-                                    <p><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
-                                    <p><strong>Preço:</strong> ${hamburgues.price.toFixed(2)}</p>
+                            hamburgues.type === 1 && (
+                                <div key={index} className={`${styleAccordion.divProductos}`}>
+                                    <div className={`${styleAccordion.divProductosInfo}`}>
+                                        <h2>{hamburgues.name}</h2>
+                                        <p>{hamburgues.description}</p>
+                                        <p><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
+                                        <p><strong>Preço:</strong> ${hamburgues.price.toFixed(2)}</p>
+                                    </div>
+                                    <div>
+                                        <button className={`${styleAccordion.addCar}`} onClick={() => openDialog(hamburgues)}>Adicionar ao Carrinho</button>
+                                    </div>
                                 </div>
-
-                                <div>
-                                    {/* <button onClick={() => decrementQuantity(index)}>-</button>
-                                    <span style={{ margin: '0 10px' }}>{quantities[index] || 0}</span>
-                                    <button onClick={() => incrementQuantity(index)}>+</button> */}
-                                    <button className={`${styleAccordion.addCar}`} onClick={() => openDialog(hamburgues)}>Adicionar ao Carrinho</button>
-                                </div>
-                            </div>
+                            )
                         ))}
                     </div>
+
+
+
+
+
+
+
+
+
                 </AccordionTab>
             </Accordion>
 
@@ -120,7 +157,7 @@ export default function Menu() {
                             <Button label='+' icon="pi pi-plus" onClick={incrementQuantity} className={`${styleAccordion.buttonIncrement}`} />
                         </div>
                         <div style={{ marginTop: '20px' }}>
-                            <Button label="Adicionar ao Carrinho" className={`${styleAccordion.addCar}`} />
+                            <Button label="Adicionar ao Carrinho" className={`${styleAccordion.addCar}`} onClick={addToCart} />
                             <Button label="Cancelar" onClick={closeDialog} className={`${styleAccordion.cancel}`} />
                         </div>
                     </div>
