@@ -1,6 +1,8 @@
 import styleHeader from '@/styles/header.module.css';
 import Link from 'next/link';
 import { Button } from 'primereact/button';
+import logo from '../../public/logo.png';
+import Image from 'next/image';
 import hamburguesData from '@/products/hamburgues.json';
 import { useEffect, useState } from 'react';
 import { Dialog } from 'primereact/dialog';
@@ -73,7 +75,7 @@ export default function Header({ selectedProducts, totalPrice, setSelectedProduc
     return (
         <header className={`${styleHeader.header}`}>
             <Link href="">
-                LOGO
+                <Image src={logo.src} alt='Logo Siri Cascudo' width={110} height={110} />
             </Link>
 
             <button onClick={handleShowCart}>Exibir Carrinho</button>
