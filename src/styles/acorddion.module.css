@@ -26,9 +26,30 @@
     border-radius: 20px;
     color: white;
     text-transform: uppercase;
+    font-family: "Oswald", sans-serif;
+    margin-right: 10px;
 }
 
-.addCar:hover{
+.iconAddCart{
+    padding: 20px;
+    background-color: green;
+    border: none;
+    border-radius: 360px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
+
+.iconDialog{
+    font-size: 2em;
+    padding: 20px;
+    border-radius: 360px;
+    background-color: orange;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.addCar:hover, .iconAddCart:hover{
     background-color: rgb(9, 78, 9);
 }
 .divProductosInfo{
@@ -53,6 +74,7 @@
     color: white;
     text-transform: uppercase;
     background-color: red;
+    font-family: "Oswald", sans-serif;
 }
 
 .cancel:hover{
@@ -71,6 +93,7 @@
     padding: 10px;
     border-radius: 20xp;
     box-shadow: 0px 0px 5px white;
+    font-family: "Oswald", sans-serif;
 }
 
 .divDialog{
@@ -91,18 +114,39 @@
 
 .buttonDecrement{
     border: none;
-    padding: 0px 5px 0px 5px;
+    padding: 5px;
+    border-radius: 360px;
     background-color: red;
     color: white;
     font-weight: bold;
-    font-size: 1.5em;
 }
 
 .buttonIncrement{
     border: none;
-    padding: 0px 5px 0px 5px;
+    padding: 5px;
+    border-radius: 360px;
     background-color: rgb(2, 2, 46);
     color: white;
     font-weight: bold;
-    font-size: 1.5em;
 }
+
+.divButonsDialog{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* styles.module.css */
+.marg{
+    border-radius: 20px;
+    padding: 50px;
+}
+
+.ptoasttopcenter {
+    background-color: #28a745 !important; /* Cor de fundo para sucesso */
+    color: white !important; /* Cor do texto */
+    padding: 0 !important; /* Remova padding extra */
+    margin: 0 !important; /* Remova margin extra */
+}
+
+
