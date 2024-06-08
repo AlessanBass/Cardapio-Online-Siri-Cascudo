@@ -30,6 +30,14 @@
       "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
       "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
       "price": 78.99
+    },
+    {
+      "id": 5,
+      "type":1,
+      "name": "Carne Molhada Burger",
+      "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
+      "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
+      "price": 45.99
     }
   ]
   
