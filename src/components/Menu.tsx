@@ -23,10 +23,10 @@ interface Pedido {
 
 
 export default function Menu() {
-    const [nomeCliente, setNomeCliente] = useState("");
+    //const [nomeCliente, setNomeCliente] = useState("");
     const hamburgues: Hamburgues[] = hamburguesData;
-    const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+   // const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+    //const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<null | Hamburgues>(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     /* Para o dialog */
