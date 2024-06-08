@@ -8,24 +8,28 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 
-
+/* Criar um JSon de prosutos e cada produto terá um tipo(suco, hamhuber e etc) */
 
 interface Hamburgues {
     id: number
     name: string;
+    type: number;
     description: string;
     ingredients: string;
     price: number;
 }
 
 interface Pedido {
-    hambuguers: Hamburgues[];
+    id_produto: number;
+    type: number;
+    quantidade: number;
 }
 
 
 export default function Menu() {
     //const [nomeCliente, setNomeCliente] = useState("");
     const hamburgues: Hamburgues[] = hamburguesData;
+    const [pedidos, setPedidos] = useState<Pedido[]>([]);
     // const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
     //const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<null | Hamburgues>(null);
@@ -43,6 +47,23 @@ export default function Menu() {
         setVisible(false);
     };
 
+    const addToCart = () => {
+        if (selectedProduct) {
+            const pedido: Pedido = {
+                id_produto: selectedProduct.id,
+                type: selectedProduct.type,
+                quantidade: selectedQuantity
+            };
+            setPedidos(prevPedidos => {
+                const novosPedidos = [...prevPedidos, pedido];
+                console.log( novosPedidos);
+                return novosPedidos;
+            });
+            closeDialog();
+        }
+    };
+
+
 
     const incrementQuantity = () => {
         setSelectedQuantity(prevQuantity => prevQuantity + 1);
@@ -56,44 +77,41 @@ export default function Menu() {
     return (
         <div className={`${styleMenu.divMenu}`}>
             <h1>Menu de Opções</h1>
-            {/* <div>
-                {hamburgues.map((hamburgues, index) => (
-                    <div key={index} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px 0' }}>
-                        <h2>{hamburgues.name}</h2>
-                        <p>{hamburgues.description}</p>
-                        <p><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
-                        <p><strong>Preço:</strong> ${hamburgues.price.toFixed(2)}</p>
-                    </div>
-                ))}
-            </div> */}
 
             <Accordion className={`${styleAccordion.accordion}`}>
                 <AccordionTab header={
                     <span className={`${styleAccordion.spanHeader}`}>
-                        <Image src={`${iconHamburguer.src}`} alt='ícone hamburger' className={`${styleAccordion.icon}`} />
+                        <Image src={`${iconHamburguer.src}`} alt='ícone hamburger' className={`${styleAccordion.icon}`} width={100} height={100} />
                         <span className={`${styleAccordion.textHeader}`}>Hamburgures</span>
                     </span>
                 }>
 
                     <div>
                         {hamburgues.map((hamburgues, index) => (
-                            <div key={index} className={`${styleAccordion.divProductos}`}>
-                                <div className={`${styleAccordion.divProductosInfo}`}>
-                                    <h2>{hamburgues.name}</h2>
-                                    <p>{hamburgues.description}</p>
-                                    <p><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
-                                    <p><strong>Preço:</strong> ${hamburgues.price.toFixed(2)}</p>
+                            hamburgues.type === 1 && (
+                                <div key={index} className={`${styleAccordion.divProductos}`}>
+                                    <div className={`${styleAccordion.divProductosInfo}`}>
+                                        <h2>{hamburgues.name}</h2>
+                                        <p>{hamburgues.description}</p>
+                                        <p><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
+                                        <p><strong>Preço:</strong> ${hamburgues.price.toFixed(2)}</p>
+                                    </div>
+                                    <div>
+                                        <button className={`${styleAccordion.addCar}`} onClick={() => openDialog(hamburgues)}>Adicionar ao Carrinho</button>
+                                    </div>
                                 </div>
-
-                                <div>
-                                    {/* <button onClick={() => decrementQuantity(index)}>-</button>
-                                    <span style={{ margin: '0 10px' }}>{quantities[index] || 0}</span>
-                                    <button onClick={() => incrementQuantity(index)}>+</button> */}
-                                    <button className={`${styleAccordion.addCar}`} onClick={() => openDialog(hamburgues)}>Adicionar ao Carrinho</button>
-                                </div>
-                            </div>
+                            )
                         ))}
                     </div>
+
+
+
+
+
+
+
+
+
                 </AccordionTab>
             </Accordion>
 
@@ -120,7 +138,7 @@ export default function Menu() {
                             <Button label='+' icon="pi pi-plus" onClick={incrementQuantity} className={`${styleAccordion.buttonIncrement}`} />
                         </div>
                         <div style={{ marginTop: '20px' }}>
-                            <Button label="Adicionar ao Carrinho" className={`${styleAccordion.addCar}`} />
+                            <Button label="Adicionar ao Carrinho" className={`${styleAccordion.addCar}`} onClick={addToCart} />
                             <Button label="Cancelar" onClick={closeDialog} className={`${styleAccordion.cancel}`} />
                         </div>
                     </div>
