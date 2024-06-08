@@ -38,6 +38,30 @@
       "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
       "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
       "price": 45.99
+    },
+    {
+      "id": 6,
+      "type":2,
+      "name": "Pastel de Jaca",
+      "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
+      "ingredients": "Jaca, Milho e Ervilha",
+      "price": 8.99
+    },
+    {
+      "id": 7,
+      "type":2,
+      "name": "Pastel de Queijo e Presunto",
+      "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
+      "ingredients": "Presunto e Queijo",
+      "price": 8.99
+    },
+    {
+      "id": 8,
+      "type":3,
+      "name": "2 Pastéis e 2 Hamburguers",
+      "description": "2 pastéis e dois deliciosos burguers",
+      "ingredients": "Carne, Pão, Ervilha",
+      "price": 24.99
     }
   ]
   
