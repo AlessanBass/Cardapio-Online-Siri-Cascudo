@@ -2,6 +2,8 @@ import styleMenu from '@/styles/menu.module.css';
 import styleAccordion from '@/styles/acorddion.module.css';
 import React, { useRef, useState } from 'react';
 import iconHamburguer from '../../public/icon_hamburguer.png';
+import iconPastel from '../../public/icon_pastel.png';
+import iconCombo from '../../public/icon_combo.png';
 import Image from 'next/image';
 import hamburguesData from '@/products/hamburgues.json';
 import { Accordion, AccordionTab } from 'primereact/accordion';
@@ -77,7 +79,7 @@ export default function Menu({ selectedProducts, setSelectedProducts, totalPrice
             setTotalPrice(newTotalPrice);
             setSelectedProducts([...selectedProducts, pedido]);
 
-            toast.current?.show({ closable:false,  summary: 'Sucesso', detail: 'Produto adicionado ao carrinho!', life: 3000 });
+            toast.current?.show({ closable: false, summary: 'Sucesso', detail: 'Produto adicionado ao carrinho!', life: 3000 });
 
             closeDialog();
         }
@@ -99,9 +101,9 @@ export default function Menu({ selectedProducts, setSelectedProducts, totalPrice
 
     return (
         <div className={`${styleMenu.divMenu}`}>
-            <Toast ref={toast} position="top-center"  className={`${styleAccordion.marg} ${styleAccordion.ptoasttopcenter}`} baseZIndex={1000} />
+            <Toast ref={toast} position="top-center" className={`${styleAccordion.marg} ${styleAccordion.ptoasttopcenter}`} baseZIndex={1000} />
 
-            <h1>Menu de Opções</h1>
+            <h1 className={`${styleMenu.h1}`}>Menu de Opções</h1>
 
             <Accordion className={`${styleAccordion.accordion}`}>
                 <AccordionTab header={
@@ -116,10 +118,10 @@ export default function Menu({ selectedProducts, setSelectedProducts, totalPrice
                             hamburgues.type === 1 && (
                                 <div key={index} className={`${styleAccordion.divProductos}`}>
                                     <div className={`${styleAccordion.divProductosInfo}`}>
-                                        <h2>{hamburgues.name}</h2>
+                                        <h2 className={`${styleMenu.nameProduct}`}>{hamburgues.name}</h2>
                                         <p>{hamburgues.description}</p>
-                                        <p><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
-                                        <p><strong>Preço:</strong> ${hamburgues.price.toFixed(2)}</p>
+                                        <p className={`${styleMenu.ingredients}`}><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
+                                        <p className={`${styleMenu.price}`}><strong>Preço:</strong> R${hamburgues.price.toFixed(2)}</p>
                                     </div>
                                     <div>
                                         <button className={`${styleAccordion.iconAddCart}`} onClick={() => openDialog(hamburgues)}>
@@ -130,49 +132,89 @@ export default function Menu({ selectedProducts, setSelectedProducts, totalPrice
                             )
                         ))}
                     </div>
-
-
-
-
-
-
-
-
-
                 </AccordionTab>
             </Accordion>
 
-            <Accordion>
-                <AccordionTab header="Pastéis">
-                    <p className="m-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
+            <Accordion className={`${styleAccordion.accordion}`}>
+                <AccordionTab header={
+                    <span className={`${styleAccordion.spanHeader}`}>
+                        <Image src={`${iconPastel.src}`} alt='ícone Pastel' className={`${styleAccordion.icon}`} width={100} height={100} />
+                        <span className={`${styleAccordion.textHeader}`}>Pastéis</span>
+                    </span>
+                }>
+
+                    <div>
+                        {hamburgues.map((hamburgues, index) => (
+                            hamburgues.type === 2 && (
+                                <div key={index} className={`${styleAccordion.divProductos}`}>
+                                    <div className={`${styleAccordion.divProductosInfo}`}>
+                                        <h2 className={`${styleMenu.nameProduct}`}>{hamburgues.name}</h2>
+                                        <p>{hamburgues.description}</p>
+                                        <p className={`${styleMenu.ingredients}`}><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
+                                        <p className={`${styleMenu.price}`}><strong>Preço:</strong> R${hamburgues.price.toFixed(2)}</p>
+                                    </div>
+                                    <div>
+                                        <button className={`${styleAccordion.iconAddCart}`} onClick={() => openDialog(hamburgues)}>
+                                            <i className="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        ))}
+                    </div>
+                </AccordionTab>
+            </Accordion>
+
+            <Accordion className={`${styleAccordion.accordion}`}>
+                <AccordionTab header={
+                    <span className={`${styleAccordion.spanHeader}`}>
+                        <Image src={`${iconCombo.src}`} alt='ícone combos' className={`${styleAccordion.icon}`} width={100} height={100} />
+                        <span className={`${styleAccordion.textHeader}`}>Combos</span>
+                    </span>
+                }>  
+
+                    <div>
+                        {hamburgues.map((hamburgues, index) => (
+                            hamburgues.type === 3 && (
+                                <div key={index} className={`${styleAccordion.divProductos}`}>
+                                    <div className={`${styleAccordion.divProductosInfo}`}>
+                                        <h2 className={`${styleMenu.nameProduct}`}>{hamburgues.name}</h2>
+                                        <p>{hamburgues.description}</p>
+                                        <p className={`${styleMenu.ingredients}`}><strong>Ingredientes:</strong> {hamburgues.ingredients}</p>
+                                        <p className={`${styleMenu.price}`}><strong>Preço:</strong> R${hamburgues.price.toFixed(2)}</p>
+                                    </div>
+                                    <div>
+                                        <button className={`${styleAccordion.iconAddCart}`} onClick={() => openDialog(hamburgues)}>
+                                            <i className="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        ))}
+                    </div>
                 </AccordionTab>
             </Accordion>
 
 
-            <Dialog className={`${styleAccordion.dialog}`} visible={visible} style={{ width: '50vw', borderRadius: '20px', fontFamily:'"Oswald", sans-serif' }} onHide={closeDialog}>
+            <Dialog className={`${styleAccordion.dialog}`} visible={visible} onHide={closeDialog}>
                 {selectedProduct && (
                     <div className={`${styleAccordion.divDialog}`}>
                         <i className={`fa-solid fa-cart-shopping ${styleAccordion.iconDialog}`}></i>
                         <h2 className={`${styleAccordion.h2Dialog}`}>Selecione a quantidade desejada</h2>
                         <h3 className={`${styleAccordion.h3Dialog}`}>{selectedProduct.name}</h3>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Button  icon="fa fa-minus" onClick={decrementQuantity} className={`${styleAccordion.buttonDecrement}`} />
+                            <Button icon="fa fa-minus" onClick={decrementQuantity} className={`${styleAccordion.buttonDecrement}`} />
                             <span style={{ margin: '0 10px' }}>{selectedQuantity}</span>
                             <Button icon="fa-solid fa-plus" onClick={incrementQuantity} className={`${styleAccordion.buttonIncrement}`} />
                         </div>
-                        <div className={`${styleAccordion.divButonsDialog}`}  style={{ marginTop: '20px' }}>
+                        <div className={`${styleAccordion.divButonsDialog}`} style={{ marginTop: '20px' }}>
                             <Button label="Adicionar ao Carrinho" className={`${styleAccordion.addCar}`} onClick={addToCart} />
                             <Button label="Cancelar" onClick={closeDialog} className={`${styleAccordion.cancel}`} />
                         </div>
                     </div>
                 )}
             </Dialog>
-            
+
         </div>
     );
 }

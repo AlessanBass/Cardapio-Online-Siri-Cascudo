@@ -1,11 +1,12 @@
-.accordion{
+.accordion {
     padding: 20px;
-    margin-bottom: 20px;
+    margin: auto auto 20px auto;
     box-shadow: 0px 0px 8px white;
     border-radius: 20px;
+    width: 90%;
 }
 
-.divProductos{
+.divProductos {
     /* border: 1px solid #ddd; */
     box-shadow: 0px 0px 5px aqua;
     padding: 10px;
@@ -19,7 +20,7 @@
 }
 
 
-.addCar{
+.addCar {
     padding: 10px 20px 10px 20px;
     background-color: green;
     border: none;
@@ -30,7 +31,7 @@
     margin-right: 10px;
 }
 
-.iconAddCart{
+.iconAddCart {
     padding: 20px;
     background-color: green;
     border: none;
@@ -40,7 +41,7 @@
     font-size: 1.2em;
 }
 
-.iconDialog{
+.iconDialog {
     font-size: 2em;
     padding: 20px;
     border-radius: 360px;
@@ -49,25 +50,27 @@
     margin-bottom: 20px;
 }
 
-.addCar:hover, .iconAddCart:hover{
+.addCar:hover,
+.iconAddCart:hover {
     background-color: rgb(9, 78, 9);
 }
-.divProductosInfo{
+
+.divProductosInfo {
     text-align: start;
 }
 
-.spanHeader{
+.spanHeader {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.textHeader{
+.textHeader {
     color: white;
     font-size: 1.2em;
 }
 
-.cancel{
+.cancel {
     padding: 10px 20px 10px 20px;
     border: none;
     border-radius: 20px;
@@ -77,42 +80,43 @@
     font-family: "Oswald", sans-serif;
 }
 
-.cancel:hover{
+.cancel:hover {
     background-color: rgb(110, 4, 4);
 }
 
-.icon{
+.icon {
     width: 100px;
     height: 100px;
     padding: 5px;
 }
 
-.dialog{
+.dialog {
     background-image: linear-gradient(to right, black, blue, black);
     color: white;
     padding: 10px;
-    border-radius: 20xp;
+    border-radius: 20px;
     box-shadow: 0px 0px 5px white;
     font-family: "Oswald", sans-serif;
+    width: 50vw;
 }
 
-.divDialog{
+.divDialog {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.h2Dialog{
+.h2Dialog {
     margin-bottom: 10px;
     text-transform: uppercase;
 }
 
-.h3Dialog{
+.h3Dialog {
     margin-bottom: 10px;
     text-transform: uppercase;
 }
 
-.buttonDecrement{
+.buttonDecrement {
     border: none;
     padding: 5px;
     border-radius: 360px;
@@ -121,7 +125,7 @@
     font-weight: bold;
 }
 
-.buttonIncrement{
+.buttonIncrement {
     border: none;
     padding: 5px;
     border-radius: 360px;
@@ -130,23 +134,99 @@
     font-weight: bold;
 }
 
-.divButonsDialog{
+.divButonsDialog {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
 /* styles.module.css */
-.marg{
+.marg {
     border-radius: 20px;
     padding: 50px;
 }
 
 .ptoasttopcenter {
-    background-color: #28a745 !important; /* Cor de fundo para sucesso */
-    color: white !important; /* Cor do texto */
-    padding: 0 !important; /* Remova padding extra */
-    margin: 0 !important; /* Remova margin extra */
+    background-color: #28a745 !important;
+    /* Cor de fundo para sucesso */
+    color: white !important;
+    /* Cor do texto */
+    padding: 0 !important;
+    /* Remova padding extra */
+    margin: 0 !important;
+    /* Remova margin extra */
 }
 
 
+/* Media query */
+@media (max-width: 800px) {
+    .divProductos {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+    }
+
+    .divProductosInfo {
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: justify;
+    }
+
+    .iconAddCart {
+        font-size: 1.2em;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 785px) {
+    .dialog {
+        width: 80vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .dialog {
+        width: 90vw;
+    }
+}
+
+@media (max-width: 415px) {
+    .dialog {
+        width: 80vw;
+    }
+
+    .h2Dialog {
+        text-align: center;
+    }
+
+    .divButonsDialog {
+        flex-direction: column;
+    }
+
+    .cancel {
+        padding: 5px 10px 5px 10px;
+    }
+
+    .addCar {
+        padding: 5px 10px 5px 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 370px) {
+    .spanHeader{
+        flex-direction: column;
+    }
+
+    .divProductos{
+        width: 100%;
+    }
+
+    .accordion{
+        width: 100%;
+    }
+}

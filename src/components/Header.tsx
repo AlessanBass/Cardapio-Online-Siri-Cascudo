@@ -8,8 +8,6 @@ import hamburguesData from '@/products/hamburgues.json';
 import { useEffect, useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
-
 
 interface Pedido {
     id_produto: number;
@@ -29,7 +27,7 @@ interface Hamburgues {
 interface HeaderProps {
     selectedProducts: Pedido[];
     totalPrice: number;
-    setSelectedProducts: (products: Pedido[]) => void; // Adicione esta linha
+    setSelectedProducts: (products: Pedido[]) => void;
     setTotalPrice: (price: number) => void;
 }
 
@@ -56,8 +54,6 @@ export default function Header({ selectedProducts, totalPrice, setSelectedProduc
         return name.trim().length >= 2;
     };
 
-    
-
     const openDialog = () => {
         setVisible(true);
     };
@@ -74,7 +70,7 @@ export default function Header({ selectedProducts, totalPrice, setSelectedProduc
         const newSelectedProducts = [...selectedProducts];
         newSelectedProducts.splice(id_pedido, 1);
         setSelectedProducts(newSelectedProducts);
-        setTotalPrice(totalPrice -= (price * qtd));
+        setTotalPrice(totalPrice - (price * qtd));
     };
 
     const handleFinalizeOrder = () => {
@@ -108,37 +104,43 @@ export default function Header({ selectedProducts, totalPrice, setSelectedProduc
             <div>
                 <Button onClick={handleShowCart} className={`${styleHeader.button}`}>
                     <i onClick={handleShowCart} className={` fa-solid fa-cart-shopping ${styleHeader.iconButton}`}></i>
-                    <span>Exibir Carrinho</span>
+                    <span>Ver Carrinho</span>
                 </Button>
             </div>
 
-            <Dialog className={`${styleCar.dialog}`} visible={visible} style={{ width: '50vw', borderRadius: '20px', fontFamily: '"Oswald", sans-serif' }} onHide={closeDialog} modal>
+            <Dialog className={`${styleCar.dialog}`} visible={visible} onHide={closeDialog} modal>
                 <div className={`${styleCar.divDialog}`}>
                     <Image src={logo.src} alt='Logo Siri Cascudo' width={150} height={150} />
                     <h2 className={`${styleCar.h2}`} >Seu pedido</h2>
-                    {selectedProducts.map((product, index) => {
-                        const burger = hamburgues.find(burger => burger.id === product.id_produto);
-                        return (
-                            <div className={`${styleCar.divPedidos}`} key={index}>
-                                <div>
-                                    <p>{product.quantidade}x {burger ? burger.name : 'Hambúrguer não encontrado'}</p>
-                                    <p>Preço unidade: {burger ? burger.price : '-'}</p>
-                                </div>
+                    {selectedProducts.length > 0 ? (
+                        <>
+                            {selectedProducts.map((product, index) => {
+                                const burger = hamburgues.find(burger => burger.id === product.id_produto);
+                                return (
+                                    <div className={`${styleCar.divPedidos}`} key={index}>
+                                        <div>
+                                            <p>{product.quantidade}x {burger ? burger.name : 'Hambúrguer não encontrado'}</p>
+                                            <p>Preço unidade: {burger ? burger.price : '-'}</p>
+                                        </div>
 
-                                <div>
-                                    <i onClick={() => handleRemoveProduct(index, burger ? burger.price : 0, product.quantidade)} className={`fa-solid fa-trash ${styleCar.iconTrash} `}></i>
+                                        <div>
+                                            <i onClick={() => handleRemoveProduct(index, burger ? burger.price : 0, product.quantidade)} className={`fa-solid fa-trash ${styleCar.iconTrash} `}></i>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                            <h3 className={styleCar.h3} >Preço Total: <span className={styleCar.spanPrice} >R$ {totalPrice.toFixed(2)} </span></h3>
+                            <div className={styleCar.form}>
+                                <div className={styleCar.divFormInput}>
+                                    <label className={styleCar.label} htmlFor="name">Nome do Cliente:</label>
+                                    <InputText className={styleCar.input} id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder='Informe o seu nome'/>
                                 </div>
                             </div>
-                        );
-                    })}
-                    <h3 className={styleCar.h3} >Preço Total: <span className={styleCar.spanPrice} >R$ {totalPrice.toFixed(2)} </span></h3>
-                    <div className={styleCar.form}>
-                        <div className={styleCar.divFormInput}>
-                            <label className={styleCar.label} htmlFor="name">Nome do Cliente:</label>
-                            <InputText className={styleCar.input} id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder='Informe o seu nome'/>
-                        </div>
-                    </div>
-                    <button disabled={!isNameValid(name)} onClick={handleFinalizeOrder}>Finalizar Pedido</button>
+                            <button className={styleCar.buttonFinishComand} disabled={!isNameValid(name)} onClick={handleFinalizeOrder}>Finalizar Pedido</button>
+                        </>
+                    ) : (
+                        <p className={styleCar.emptyCartMessage}>Ainda não há nada no carrinho.</p>
+                    )}
                 </div>
             </Dialog>
         </header>
