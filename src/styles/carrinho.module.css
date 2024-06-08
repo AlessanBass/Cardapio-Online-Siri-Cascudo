@@ -1,0 +1,84 @@
+.dialog{
+    background-image: linear-gradient(to right, black, blue, black);
+    color: white;
+    padding: 10px;
+    border-radius: 20xp;
+    box-shadow: 0px 0px 5px white;
+    font-family: "Oswald", sans-serif;
+}
+
+.divDialog{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.h2{
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    padding: 5px 15px 5px 15px;
+    background-color: black;
+    border-radius: 20px;
+    font-size: 1.5em;
+}
+
+.divPedidos{
+    padding: 10px;
+    background-color: black;
+    box-shadow: 0px 0px 8px white;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    min-width: 400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.iconTrash{
+    color: red;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.iconTrash:hover{
+    color: rgb(177, 18, 18);
+}
+
+
+.spanPrice{
+    color: orange;
+}
+
+.h3{
+    background-color: black;
+    padding: 5px 15px 5px 15px;
+    border-radius: 10px;
+}
+
+.form{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.divFormInput{
+    padding: 10px 20px 10px 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.label{
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.input{
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+}
