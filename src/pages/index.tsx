@@ -1,12 +1,15 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Oswald } from "next/font/google";
+import Header from "@/components/Header";
+import Menu from "@/components/Menu";
 
-const inter = Inter({ subsets: ["latin"] });
+const oswald = Oswald({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <main>
-        Esse vai ser o seu cardapio online!
+    <main className={oswald.className}>
+        <Header/>
+        <Menu/>
     </main>
   );
 }

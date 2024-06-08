@@ -1,0 +1,31 @@
+[
+    {
+      "id": 1,
+      "name": "Classic Burger",
+      "description": "A classic beef burger with cheese, lettuce, and tomato.",
+      "ingredients": "Beef, Cheese, Lettuce, Tomato, Bun",
+      "price": 8.99
+    },
+    {
+      "id": 2,
+      "name": "Bacon Burger",
+      "description": "A beef burger with crispy bacon, cheese, and BBQ sauce.",
+      "ingredients": "Beef, Bacon, Cheese, BBQ Sauce, Bun",
+      "price": 10.99
+    },
+    {
+      "id": 3,
+      "name": "Veggie Burger",
+      "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
+      "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
+      "price": 7.99
+    },
+    {
+      "id": 4,
+      "name": "Zé da Manga Burguer",
+      "description": "A delicious veggie patty with lettuce, tomato, and avocado.",
+      "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Bun",
+      "price": 78.99
+    }
+  ]
+  
